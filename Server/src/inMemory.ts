@@ -14,12 +14,19 @@ export class InMemoryStore implements Store {
         this.store = new Map<string, Room>()
     }
 
-    initroom(room: string, limit: number, offset : number){
-
+    initroom(roomId : string ){
+        this.store.set(roomId, {
+            roomId,
+            chats : [],
+        })
     }
 
-    addchat(room: string, limit: number, offset : number){
-
+    addchat(roomId: string, limit: number, offset : number){
+        const room = this.store.get(roomId);
+        if(!room){
+            return [];
+        }
+        return room.chats.slice(0,limit)
     }
 
     upvote(room : string, chatid: string){

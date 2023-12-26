@@ -14,7 +14,7 @@ export abstract class Store {
 
     }
 
-    initroom(room: string, limit: number, offset : number){
+    initroom(roomId : string){
 
     }
 
