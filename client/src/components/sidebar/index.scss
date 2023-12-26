@@ -1,0 +1,70 @@
+.Mainsidebar {
+  min-width: 330px;
+  max-width: 370px;
+  height: 97vh;
+  background-color: #b8bedd;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+
+  .navheader {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    padding: 5px;
+    padding-left: 20px;
+    border-bottom: 1px solid #f0e6ef;
+
+    .icons {
+      font-size: 25px;
+      margin-left: 25px;
+
+      &:last-child {
+        margin-right: 15px;
+      }
+    }
+
+    .mainuser {
+      margin: 0;
+      margin-right: auto;
+    }
+  }
+
+  .searchandfilter {
+    display: flex;
+
+    .search {
+      display: flex;
+      min-width: 80%;
+      margin-top: 10px;
+      align-items: center;
+
+      .searchicon {
+        padding-top: 5px;
+        font-size: 25px;
+        margin-left: 20px;
+      }
+
+      .searchinput {
+        border: 0;
+
+        margin-left: 10px;
+        padding: 7px;
+        outline: none;
+        background-color: #b8bedd;
+      }
+    }
+
+    .filter {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 25px;
+    }
+  }
+
+  .conversation {
+    max-width: 97%;
+    max-height: 80vh;
+  }
+}
