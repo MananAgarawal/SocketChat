@@ -9,7 +9,9 @@ const Maincontainer = () => {
     return (
         <div className ='conatiner'>
             <Sidebar /> 
-            <Creategroup />
+
+
+            {/* <Creategroup /> */}
             {/* <Welcome /> */}
             {/* <Chatarea /> */}
         </div>
