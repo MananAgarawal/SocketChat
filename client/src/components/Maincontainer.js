@@ -1,7 +1,7 @@
 import './mystyles.scss'
 import React from 'react';
 import Sidebar from './sidebar'
-import Workarea from './workarea';
+import Chatarea from './Chatarea';
 
 
 
@@ -9,7 +9,7 @@ const Maincontainer = () => {
     return (
         <div className ='conatiner'>
             <Sidebar />
-            <Workarea />
+            <Chatarea />
         </div>
     );
 }

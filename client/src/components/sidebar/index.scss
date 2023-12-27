@@ -5,6 +5,8 @@
   background-color: #b8bedd;
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
+  display: flex;
+  flex-direction: column;
 
   .navheader {
     display: flex;
@@ -31,6 +33,7 @@
 
   .searchandfilter {
     display: flex;
+   
 
     .search {
       display: flex;
@@ -65,6 +68,71 @@
 
   .conversation {
     max-width: 97%;
-    max-height: 80vh;
+    height: 200px;
+    flex: 0.99;
+    display: flex;
+    flex-direction: column;
+
+    .chat-container{
+         flex: 1 ;
+         width: 97%;
+         overflow: scroll;
+
+         &::-webkit-scrollbar {
+          display: none;
+        }
+    
+
+        .indi-convo{
+            display: grid;
+            grid-template-columns: 32px auto auto;
+            grid-template-rows: auto auto;
+            column-gap: 10px;
+            padding: 5px;
+            margin: 5px;
+            background-color: #b3badb ;
+            border-radius: 10px;
+
+            .convo-icon{
+                grid-area: 1/1/3/2;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background-color: #c1c6e1;
+
+                font-family : 'Coolvetica';
+                font-size: 2rem;
+            
+                color: white;
+                height: 32px;
+                width: 32px;
+                padding: 2px;
+
+                border-radius: 50%;
+                justify-self: center;
+                align-self: center;
+            }
+
+            .convo-name{
+                grid-area: 1/2/2/4;
+                font-family: 'Coolvetica';
+                color: rgba(0,0,0,0.54);
+            }
+
+            .convo-timestamp{
+                justify-self: flex-end;
+                font-family: 'La Belle Aurore';
+                font-size: 0.75rem;
+            }
+
+            .convo-lastM{
+                font-family: sans-serif;
+                font-size: 0.8rem;
+                color: rgba(0,0,0,0.54);
+            }
+
+        }
+    }
   }
 }

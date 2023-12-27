@@ -2,6 +2,21 @@
     margin: 0;
 }
 
+  @font-face {
+    font-family: 'Shortbaby';
+    src: url('./Assets/fonts/helvetica-neu.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'La Belle Aurore';
+    src: url('./Assets/fonts/LaBelleAurore.woff2') format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'Coolvetica';
+    src: url('./Assets/fonts/CoolveticaRg-Regular.woff2') format('woff2');
+  }
+
 .App{
     display: flex;
     align-items: center;

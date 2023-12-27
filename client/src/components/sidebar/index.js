@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaRegUserCircle, FaRandom } from "react-icons/fa";
 import { TiGroup } from "react-icons/ti";
 import { IoMdPersonAdd, IoMdMoon } from "react-icons/io";
@@ -8,24 +8,100 @@ import "./index.scss";
 import "../mystyles.scss";
 
 const Sidebar = () => {
+  const [conversations, setconvo] = useState([
+    {
+      name: "Manan",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Golu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Aalu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Manan",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Golu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Aalu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Manan",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Golu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Aalu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Manan",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Golu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Aalu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Manan",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Golu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Aalu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Manan",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Golu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+    {
+      name: "Aalu",
+      lastM: "alr then see ya",
+      timestamp: "today",
+    },
+  ]);
 
-    const [conversations,setconvo] = useState([
-        {
-            name : "Manan",
-            lastM : "alr then see ya",
-            timestamp : "today"
-        },
-        {
-            name : "Golu",
-            lastM : "alr then see ya",
-            timestamp : "today"
-        },
-        {
-            name : "Aalu",
-            lastM : "alr then see ya",
-            timestamp : "today"
-        },
-    ])
+  
 
   return (
     <div className="Mainsidebar">
@@ -62,17 +138,27 @@ const Sidebar = () => {
           <CiFilter />
         </div>
       </div>
-      <div className="conversation">
+      <div id="brute-forced" className="conversation">
         <Loadchats convo={conversations} />
+      </div>
+      <div className="brute-forcing-the-overflow">
+
       </div>
     </div>
   );
 };
 
-const Loadchats = () => {
+const Loadchats = (props) => {
   return (
     <div className="chat-container">
-      
+      {props.convo.map((curConvo, index) => (
+        <div key={index} className="indi-convo">
+          <p className="convo-icon">{curConvo.name[0]}</p>
+          <p className="convo-name">{curConvo.name}</p>
+          <p className="convo-lastM">{curConvo.lastM}</p>
+          <p className="convo-timestamp">{curConvo.timestamp}</p>
+        </div>
+      ))}
     </div>
   );
 };
