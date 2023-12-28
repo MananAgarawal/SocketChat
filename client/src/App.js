@@ -6,9 +6,8 @@ import Maincontainer from './components/Maincontainer';
 function App() {
   return (
     <div className="App">
-      <LogorSign />
-
-      {/* <Maincontainer /> */}
+      {/* <LogorSign /> */}
+      <Maincontainer />
     </div>
   );
 }

@@ -13,7 +13,7 @@ const Maincontainer = () => {
 
             {/* <Creategroup /> */}
             {/* <Welcome /> */}
-            {/* <Chatarea /> */}
+            <Chatarea />
         </div>
     );
 }

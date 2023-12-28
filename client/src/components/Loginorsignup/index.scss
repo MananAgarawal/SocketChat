@@ -66,6 +66,7 @@
 
 
         .graey{
+            z-index: 2;
             min-height: 95vh;
             width: 99%;
             background-color: #d9d9d9;
@@ -73,6 +74,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+
+          
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url('../../Assets/images/talkwithstranger-1200x1065.jpg') center/cover;
+                    filter: blur(5px); // Adjust the blur amount as needed
+                    background-size: contain;
+                    background-position: center;
+                   
+                  }
+            
+
         }
     }
 
@@ -82,12 +101,15 @@
 
 
 .MainLogorsign{
+    z-index: 4;
+    border-radius: 20px;
     background-color: #73C1C6;
     min-width: 330px;
     max-width: 450px;
     height: 450px;
 
     .Signup{
+   
         height: 100%;
         display: flex;
         align-items: center;
@@ -104,6 +126,7 @@
 
         
         .slideup{
+            border-radius: 20px;
             flex: 0.2;
             width: 100%;
             display: flex;
@@ -114,7 +137,7 @@
             background-color: white;
 
 
-            .Loginbtn{
+            .signupbutton{
                 padding-top: 30px;
                 font-size: 1rem;
                 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -131,7 +154,7 @@
 
         .signup-form-submit{
             flex: 0.6;
-            
+
             .formarea{
                 
                 display: flex;
@@ -161,9 +184,84 @@
                 }
             }
         }
-
-      
-
-       
     }
+
+    .Login{
+       
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .slidedown{
+            border-radius: 20px;
+            flex: 0.2;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom-right-radius: 60%;
+            border-bottom-left-radius: 60%;
+            background-color: white;
+
+
+            .sign-uptog{
+                padding-top: 30px;
+                font-size: 1rem;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                
+                &:hover{
+                    cursor: pointer;
+                }
+    
+                span{
+                    opacity: 0.6;
+                }
+            }
+        }
+
+        .Login-text{
+            flex: 0.2;
+            padding-top: 45px;
+            padding-bottom: 5px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .login-form-submit{
+            flex: 0.6;
+            display: flex;
+            align-items: center;
+
+            .formarea{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                input{
+                    padding: 7%;
+                    margin: 5%;
+                    border: 0;
+                    outline: none;
+                    border-radius: 10px;
+                }
+
+
+                .login-btn{
+                    padding: 9px;
+                    width: 67%;
+                    border: none;
+                    margin-top: 15px;
+                    border-radius: 25px;
+        
+                    &:hover{
+                        cursor: pointer;
+                        background-color: #d9d9d9;
+                    }
+                }
+            }
+        }
+    }
+
 }
+
+
