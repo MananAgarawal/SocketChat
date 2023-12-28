@@ -12,7 +12,7 @@ function App() {
 
       <div className="App">
         <Routes>
-            <Route path='/Auth' element={<LogorSign/>} />
+            <Route path='/' element={<LogorSign/>} />
             <Route path='/App' element={<Maincontainer />}>
                 <Route path='Welcome' element={<Welcome />}/>
                 <Route path='chat' element={<Chatarea />}/>
