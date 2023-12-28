@@ -4,6 +4,7 @@ import { TiGroup } from "react-icons/ti";
 import { IoMdPersonAdd, IoMdMoon } from "react-icons/io";
 import { GoSearch } from "react-icons/go";
 import { CiFilter } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import "../mystyles.scss";
 
@@ -101,7 +102,12 @@ const Sidebar = () => {
     },
   ]);
 
-  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to /app/welcome when the component mounts
+    navigate('/app/welcome');
+  }, []);
 
   return (
     <div className="Mainsidebar">
@@ -118,7 +124,7 @@ const Sidebar = () => {
         <span className="icons">
           <IoMdMoon />
         </span>
-        <span className="icons">
+        <span onClick={() => {navigate('creategroup')}} className="icons">
           <TiGroup />
         </span>
       </div>

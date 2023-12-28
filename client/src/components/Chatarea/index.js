@@ -40,7 +40,7 @@ const Chatarea = () => {
             <div className="Chatarea">
             </div>
             <div id="appending" className="Inputarea">
-                <textarea spellcheck="false" id="myTextarea" onChange={(e) => setInputValue(e.target.value)} className="inputelem" placeholder="Type a message...."/>
+                <textarea spellCheck="false" id="myTextarea" onChange={(e) => setInputValue(e.target.value)} className="inputelem" placeholder="Type a message...."/>
                 <img onClick={handlesendarrow} className="sendarrow" src={arrow}  alt="Looping GIF" />
             </div>
         </div>
