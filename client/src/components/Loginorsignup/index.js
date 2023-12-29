@@ -2,6 +2,8 @@ import React from "react";
 import "./index.scss";
 import chatgif from "../../Assets/images/chat.gif";
 import { useState } from "react";
+import { ToastContainer , toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const LogorSign = () => {
   const [isLoginFormVisible, setLoginFormVisible] = useState(true);
@@ -48,12 +50,26 @@ const HandleSignUpSubmit = async (event) => {
 
       const json = await response.json();
 
-      await SetAuthInfo({
-        Name : '',
-        Mail : '',
-        Pass : '',
-      })
+      document.getElementById('username').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
 
+      console.log(json.msg);
+      
+      if(json.msg === 'Success'){
+        toast("Account Created Succesfully");
+      } 
+      else if (json.msg ==='Invalid email format'){
+        toast("Invalid email format");
+        return;
+      }
+      else if (json.msg ==='Email Already Exists'){
+        toast("Email Already Exists");
+        return;
+      }
+
+      
+      
       } catch (error) {
           console.error(`Error :`, error.message)
       }
@@ -80,11 +96,13 @@ const HandleSignUpSubmit = async (event) => {
                       name="Name"
                       onChange={HandleInputChange}
                       placeholder="Username"
+                      id="username"
                       className="username"
                       required
                     />
-                    <input onChange={HandleInputChange} name="Mail" type="Email" placeholder="email" className="email" required />
+                    <input id="email" onChange={HandleInputChange} name="Mail" type="Email" placeholder="email" className="email" required />
                     <input
+                      id="password"
                       onChange={HandleInputChange}
                       name="Pass"
                       placeholder="Password"
@@ -120,6 +138,7 @@ const HandleSignUpSubmit = async (event) => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
