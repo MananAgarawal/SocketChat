@@ -8,10 +8,17 @@ app.use(cors());
 const jsonParser = bodyParser.json();
 app.use(jsonParser);
 const port = process.env.PORT || 8080;
+const connectMongoAtlas = require('./connection');
+
+
+connectMongoAtlas(process.env.MONGO_CONNECTION_STRING);
 
 
 const auth = require('./routes/Authorisation');
 app.use("/", auth);
+
+
+
 
 
 app.listen(port, () => {
