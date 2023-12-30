@@ -90,8 +90,6 @@
                     background-position: center;
                    
                   }
-            
-
         }
     }
 
@@ -136,13 +134,13 @@
             border-top-left-radius: 60%;
             background-color: white;
 
-
             .signupbutton{
                 padding-top: 30px;
                 font-size: 1rem;
                 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
                 
                 &:hover{
+                    color: gray;
                     cursor: pointer;
                 }
     
@@ -211,6 +209,7 @@
                 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
                 
                 &:hover{
+                    color: gray;
                     cursor: pointer;
                 }
     

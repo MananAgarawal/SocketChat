@@ -106,7 +106,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     // Redirect to /app/welcome when the component mounts
-    navigate('/app/welcome');
+    // navigate('/app/welcome');
   }, []);
 
   return (

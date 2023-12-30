@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 import chatgif from "../../Assets/images/chat.gif";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer , toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,20 +22,69 @@ const LogorSign = () => {
         });
   };
 
+  useEffect(() => {
+
+  }, []);
 
   const toggleForm = () => {
     setLoginFormVisible((prev) => !prev);
+    inputcleanup();
   };
 
 
-const HandleLoginSubmit = () => {
 
+  const inputcleanup = () => {
+    document.getElementById('username').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+
+    SetAuthInfo({
+      Name : '',
+      Mail : '',
+      Pass : '',
+    })
+}
+
+
+
+const HandleLoginSubmit = async (event) => {
+
+      event.preventDefault();
+
+      try{
+        const response = await fetch("http://localhost:5005/login",{
+          method : 'POST',
+          headers : {
+            'Content-type' : 'application/json'
+          },
+          body : JSON.stringify(AuthInfo)
+      });
+
+      const json = await response.json();
+
+      if (json.msg === 'Email not found'){
+          toast("Email not found");
+      } else if (json.msg === 'Invalid password'){
+          toast("Invalid password");
+      } else if (json.msg === 'Authentication successful'){
+          localStorage.setItem('AuthToken', json.token);
+          toast("Authentication successful");
+      } else {
+        toast ("Oops something went wrong");
+      }
+
+      inputcleanup();
+
+      } catch (error) {
+        console.error('Error',error)
+      }
+      
 }   
 
 
 
-
 const HandleSignUpSubmit = async (event) => {
+
       event.preventDefault();
 
       try{
@@ -45,14 +94,12 @@ const HandleSignUpSubmit = async (event) => {
             'Content-Type' : 'application/json'
           },
           body : JSON.stringify(AuthInfo)
-  
+          
         });
 
       const json = await response.json();
 
-      document.getElementById('username').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('password').value = '';
+      inputcleanup();
 
       console.log(json.msg);
       
@@ -68,8 +115,7 @@ const HandleSignUpSubmit = async (event) => {
         return;
       }
 
-      
-      
+    
       } catch (error) {
           console.error(`Error :`, error.message)
       }
@@ -127,8 +173,9 @@ const HandleSignUpSubmit = async (event) => {
                 </div>
                 <form onSubmit={HandleLoginSubmit} className="login-form-submit">
                   <div className="formarea">
-                    <input name="Name" placeholder="Username" className="username" required/>
-                    <input name="Pass" placeholder="Password" className="password" required/>
+                    <input id="email" type="email" onChange={HandleInputChange} name="Mail" placeholder="Email" className="Email" required/>
+                    <input id="password" onChange={HandleInputChange} name="Pass" placeholder="Password" className="password" required/>
+                    <span id="username" className="lol-brute-forced-the-error"></span>
                     <button className="login-btn">Submit</button>
                   </div>
                 </form>
