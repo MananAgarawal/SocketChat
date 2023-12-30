@@ -19,9 +19,10 @@ async function userlogin(req: Request, res: Response) {
       if (Checkuser === null || !Checkuser || Checkuser === undefined){
           return res.status(400).json({msg : "Email not found"})
       } else {
-          
-          if(Checkuser.Password === Pass){
 
+          const passwordMatch = await bcrypt.compare(Pass, Checkuser.Password);
+          
+          if(passwordMatch){
              const token = await jwt.sign({ Mail: Checkuser.Email }, process.env.TOKEN_SECRET);
 
             console.log('Token :', token );
