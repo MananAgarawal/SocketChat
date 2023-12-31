@@ -42,6 +42,9 @@ async function userlogin(req: Request, res: Response) {
 
 async function usersignup(req: Request, res: Response) {
   try {
+
+    console.log(req.body)
+
     const { Name, Mail, Pass } = req.body;
 
     if (!Name || !Mail || !Pass) {
