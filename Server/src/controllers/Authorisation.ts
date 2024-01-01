@@ -81,7 +81,15 @@ async function usersignup(req: Request, res: Response) {
   }
 }
 
+async function tokenauth ( req : Request , res : Response ) {
+      const token = req.headers.authorization;
+      const decoded_token = jwt.decode(token, process.env.TOKEN_SECRET)
+      console.log(decoded_token);
+      return res.status(200).json({msg : "Authorised"})
+}
+
 module.exports = {
   userlogin,
   usersignup,
+  tokenauth
 };

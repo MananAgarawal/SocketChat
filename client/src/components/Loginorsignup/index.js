@@ -4,11 +4,14 @@ import { useState, useEffect } from "react";
 import { ToastContainer , toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import "./index.scss";
+import { useNavigate } from 'react-router-dom'
 
 
 const LogorSign = () => {
   const [isLoginFormVisible, setLoginFormVisible] = useState(true);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   const [AuthInfo,SetAuthInfo] = useState({
         Name : '',
@@ -25,14 +28,30 @@ const LogorSign = () => {
   };
 
   useEffect(() => {
+        const checkAuth = async () =>{
+              const AuthToken = localStorage.getItem('AuthToken')
 
+              if(AuthToken){
+                 const response = await fetch("http://localhost:5000/",{
+                    method : 'POST',
+                    headers : {
+                      "Content-Type" : "application/json",
+                      "Authorization" : AuthToken,
+                    }
+                 })
+                 if (response.ok){
+                     navigate('app')
+                 }} else {
+                    return;}
+                }
+
+              checkAuth();
   }, []);
 
   const toggleForm = () => {
     setLoginFormVisible((prev) => !prev);
     inputcleanup();
   };
-
 
   const inputcleanup = () => {
     SetAuthInfo({
@@ -42,14 +61,12 @@ const LogorSign = () => {
     })
 }
 
-
-
 const HandleLoginSubmit = async (event) => {
       setLoading(true);
       event.preventDefault();
 
       try{
-        const response = await fetch("http://localhost:5005/login",{
+        const response = await fetch("http://localhost:5000/login",{
           method : 'POST',
           headers : {
             'Content-type' : 'application/json'
@@ -66,27 +83,24 @@ const HandleLoginSubmit = async (event) => {
       } else if (json.msg === 'Authentication successful'){
           localStorage.setItem('AuthToken', json.token);
           toast("Authentication successful");
+          navigate('app')
       } else {
         toast ("Oops something went wrong");
       }
-
       inputcleanup();
 
       } catch (error) {
         console.error('Error',error)
       }
-
       setLoading(false);
 }   
-
-
 
 const HandleSignUpSubmit = async (event) => {
      setLoading(true);
       event.preventDefault();
 
       try{
-        const response = await fetch('http://localhost:5005/signup',{
+        const response = await fetch('http://localhost:5000/signup',{
           method : 'POST',
           headers : {
             'Content-Type' : 'application/json'
@@ -100,7 +114,7 @@ const HandleSignUpSubmit = async (event) => {
       inputcleanup();
 
       console.log(json.msg);
-      
+
       if(json.msg === 'Success'){
         toast("Account Created Succesfully");
       } 

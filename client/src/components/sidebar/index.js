@@ -101,13 +101,10 @@ const Sidebar = () => {
       timestamp: "today",
     },
   ]);
-
+  
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Redirect to /app/welcome when the component mounts
-    navigate('/app/welcome');
-  }, []);
+  
 
   return (
     <div className="Mainsidebar">
@@ -118,7 +115,7 @@ const Sidebar = () => {
         <span className="icons">
           <FaRandom />
         </span>
-        <span className="icons">
+        <span onClick={() => {navigate('add')}} className="icons">
           <IoMdPersonAdd />
         </span>
         <span className="icons">
@@ -155,10 +152,18 @@ const Sidebar = () => {
 };
 
 const Loadchats = (props) => {
+
+  const navigate = useNavigate();
+
+  const HandleIndiConvoRender = () => {
+    navigate('chat')
+  }
+
+
   return (
     <div className="chat-container">
       {props.convo.map((curConvo, index) => (
-        <div key={index} className="indi-convo">
+        <div key={index} onClick={HandleIndiConvoRender} className="indi-convo">
           <p className="convo-icon">{curConvo.name[0]}</p>
           <p className="convo-name">{curConvo.name}</p>
           <p className="convo-lastM">{curConvo.lastM}</p>

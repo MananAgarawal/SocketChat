@@ -17,7 +17,6 @@ const Creategroup = () => {
             <input type="text" id="groupDescription" name="groupDescription" required />
             <label htmlFor="groupMembers">Max Members:</label>
             <input type="Number" id="groupMembers" name="groupMembers" required />
-
             <button type="submit">Create Group</button>
           </div>
         </form>

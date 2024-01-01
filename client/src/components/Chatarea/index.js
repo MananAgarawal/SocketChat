@@ -4,8 +4,21 @@ import { useState, useEffect } from "react";
 import arrow from '../../Assets/images/send-arrow.gif'
 import { FaUserCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { io  } from 'socket.io-client'
 
 const Chatarea = () => {
+
+    useEffect(() => {
+        const socket = io('http://localhost:5000/socket', {
+            transports: ['websocket']
+         });
+        console.log(socket)
+        
+    
+        return () => {
+          socket.disconnect();
+        };
+      }, []);
 
     const [inputValue, setInputValue] = useState('');
 
@@ -30,7 +43,6 @@ const Chatarea = () => {
       const handlesendarrow = () => {
             
       }
-
 
     return (
         <div className="MainChatArea">

@@ -11,10 +11,6 @@ const Maincontainer = () => {
         <div className ='conatiner'>
             <Sidebar /> 
             <Outlet />
-
-            {/* <Creategroup /> */}
-            {/* <Welcome /> */}
-            {/* <Chatarea /> */}
         </div>
     );
 }
