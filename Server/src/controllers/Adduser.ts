@@ -5,10 +5,15 @@ const USERS = require("../models/user");
 
 async function Adduser(req : Request , res : Response){
       
+      const senderdetail = await USERS.findOne({Email : req.body.SendersMail})
       const DoesExists = await USERS.findOne({Email : req.body.Useremail})
-   
+
       if (!DoesExists){
             return res.status(400).json({msg : "Email not found"})
+      }
+
+      if (req.body.SendersMail === DoesExists.Email) {
+            return res.status(400).json({ msg: "Can't Add Yourself" });
       }
 
       const DoesChatExists = await UserChat.findOne({
@@ -18,11 +23,15 @@ async function Adduser(req : Request , res : Response){
       }
 
       const NewUserChat = new UserChat({
-            chatname: DoesExists.Username,
+            chatname : [
+                  senderdetail.Username,
+                  DoesExists.Username,
+            ] ,
             users : [
                   req.body.SendersMail,
                   DoesExists.Email,
-            ]
+            ],
+            sender : true
       });
 
       NewUserChat.save();
