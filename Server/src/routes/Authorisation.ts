@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { userlogin , usersignup , tokenauth} = require('../controllers/Authorisation')
+const { userlogin , usersignup , redirectauth} = require('../controllers/Authorisation')
+const { auth } = require('../middlewares/Tokenauth')
 
-router.post("/",tokenauth);
+router.post("/", auth , redirectauth);
 router.post("/login", userlogin);
 router.post("/signup", usersignup);
 

@@ -24,8 +24,6 @@ async function userlogin(req: Request, res: Response) {
           
           if(passwordMatch){
              const token = await jwt.sign({ Mail: Checkuser.Email }, process.env.TOKEN_SECRET);
-
-            console.log('Token :', token );
               return res.status(200).json({
                 msg : 'Authentication successful',
                 token : token,
@@ -42,9 +40,6 @@ async function userlogin(req: Request, res: Response) {
 
 async function usersignup(req: Request, res: Response) {
   try {
-
-    console.log(req.body)
-
     const { Name, Mail, Pass } = req.body;
 
     if (!Name || !Mail || !Pass) {
@@ -81,15 +76,12 @@ async function usersignup(req: Request, res: Response) {
   }
 }
 
-async function tokenauth ( req : Request , res : Response ) {
-      const token = req.headers.authorization;
-      const decoded_token = jwt.decode(token, process.env.TOKEN_SECRET)
-      console.log(decoded_token);
-      return res.status(200).json({msg : "Authorised"})
+async function redirectauth(req : Request, res : Response){
+      res.status(200).json({msg : 'Authentication succesful'})
 }
 
 module.exports = {
   userlogin,
   usersignup,
-  tokenauth
+  redirectauth
 };

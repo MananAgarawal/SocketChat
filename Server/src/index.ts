@@ -44,8 +44,8 @@ connectMongoAtlas(process.env.MONGO_CONNECTION_STRING);
 const auth = require('./routes/Authorisation');
 app.use("/", auth);
 
-const add = require('./routes');
-app.use("/add",add)
+const add = require('./routes/Adduser');
+app.use("/add", add)
 
 server.listen(port, () => {
     console.log(`App listening on http://localhost:${port}`);
