@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector , useDispatch} from 'react-redux';
+
 import "./index.scss";
+import { TURNOFF, TURNON } from "../../redux/slices/loaderslice";
 
 const Adduser = () => {
   const [Useremail, setUeremail] = useState("");
+
+  const Loader = useSelector((state => state.Loader))
+  const dispatch = useDispatch();
 
   const HandleOnUserEmailSubmit = async (e) => {
     e.preventDefault();
@@ -19,16 +25,25 @@ const Adduser = () => {
       });
       const json = await response.json();
       toast(`${json.msg}`);
+      dispatch(TURNOFF());
     } catch (error) {
+      dispatch(TURNOFF());
       console.error("Error", error);
     }
+     
   };
 
   return (
     <div className="Main-welcome">
       <div className="Navtop"></div>
       <div className="Chatarea">
-        <form onSubmit={HandleOnUserEmailSubmit}>
+
+        {Loader ?(
+          <div className="loader-container">
+            <span className="loader"></span>
+          </div>
+        ) : (
+          <form onSubmit={HandleOnUserEmailSubmit}>
           <div className="create-groups-flex">
             <label htmlFor="groupName">User Email:</label>
             <input
@@ -43,6 +58,7 @@ const Adduser = () => {
             <button type="submit">Add to Chat</button>
           </div>
         </form>
+        )}
       </div>
       <ToastContainer />
     </div>

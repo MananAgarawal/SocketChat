@@ -47,6 +47,9 @@ app.use("/", auth);
 const add = require('./routes/Adduser');
 app.use("/add", add)
 
+const AllChats = require('./routes/AllChats');
+app.use("/allchats", AllChats)
+
 server.listen(port, () => {
     console.log(`App listening on http://localhost:${port}`);
 });
