@@ -7,6 +7,7 @@ const cors = require('cors');
 require('dotenv').config()
 const jsonParser = bodyParser.json();
 import { Socket } from "socket.io";
+const { instrument } = require('@socket.io/admin-ui')
 
 
 
@@ -14,11 +15,13 @@ const app = express();
 const server = http.createServer(app, {
     cors: {
         cors: {
-            origin: 'http://localhost:3000',
+            origin: ['http://localhost:3000', 'https://admin.socket.io' ],
             credentials: true
           }
       }
 });
+
+
 const io = socketIO(server);
 const connectMongoAtlas = require('./connection');
 
@@ -27,12 +30,40 @@ const port = process.env.PORT || 8080;
 
 
 io.of('/socket').on('connection', (socket : Socket) => {
-    console.log('Someone Connected here');
+    console.log('Someone connected with socket id :', socket.id);
+
+    socket.on('send-message', (msg : string , chatid : string) => {
+
+        
+        socket.to(chatid).emit("recieve-msg", msg)
+
+
+        console.log(msg)
+    })
+
+    socket.on("pv-chat", (room : string) => {
+        socket.join(room)
+    })
+
+    socket.on('leave-prev-chat', () => {
+    
+        const rooms = socket.rooms
+        console.log(socket.rooms)        
+        rooms.forEach((room) => {
+            if(room !== socket.id){
+                console.log(socket.id , 'Leaved room')
+                socket.leave(room);
+            }
+        });
+    })
+
 
     socket.on('disconnect', () => {
-        console.log('Someone disconnected');
+        console.log('Someone disconnected with id' , socket.id);
     });
 })
+
+
 
 
 app.use(cors());
@@ -53,3 +84,5 @@ app.use("/allchats", AllChats)
 server.listen(port, () => {
     console.log(`App listening on http://localhost:${port}`);
 });
+
+instrument(io, {auth : false})

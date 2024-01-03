@@ -12,6 +12,7 @@ const Adduser = () => {
   const dispatch = useDispatch();
 
   const HandleOnUserEmailSubmit = async (e) => {
+    dispatch(TURNON())
     e.preventDefault();
     const AuthToken = localStorage.getItem("AuthToken");
     try {

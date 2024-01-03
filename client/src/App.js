@@ -14,7 +14,7 @@ function App() {
             <Route path='/' element={<LogorSign/>} />
             <Route path='/App' element={<Maincontainer />}>
                 <Route index element={<Welcome />} />
-                <Route path='chat' element={<Chatarea />}/>
+                <Route path='chat/:idx/:chatname' element={<Chatarea />}/>
                 <Route path='creategroup' element={<Creategroup />}/>
                 <Route path='Add' element={<Adduser />}/>
             </Route>

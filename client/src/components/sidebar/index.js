@@ -8,7 +8,8 @@ import { json, useNavigate } from "react-router-dom";
 import "./index.scss";
 import "../mystyles.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { TURNOFF, TURNON } from "../../redux/slices/loaderslice";
+import { TURNOFF } from "../../redux/slices/loaderslice";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Sidebar = () => {
       console.error("Error", error);
       dispatch(TURNOFF());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -98,22 +100,33 @@ const Sidebar = () => {
 };
 
 const ChatFormat = ({ convo, you }) => {
-
   const navigate = useNavigate();
 
-  const HandleIndiConvoRender = () => {
-    navigate("chat");
-  };
+  const HandleIndiConvoRender = (chatid) => {};
 
   return (
     <div className="chat-container">
-      {convo.map((curConvo) => (
-        <div key={curConvo.chatid} onClick={HandleIndiConvoRender} className="indi-convo">
-          <p className="convo-icon">{curConvo.chatname.find(name => name!= you)?.[0]}</p>
-          <p className="convo-name">{curConvo.chatname.find(name => name!= you)}</p>
-          <p className="convo-lastM">start chatting now</p>
-          <p className="convo-timestamp">today</p>
-        </div>
+      {convo.map((curConvo, index) => (
+        <Link  
+          to={`./chat/${index}/${curConvo.chatname.find((name) => name !== you)}`}
+          state={{ chatid : curConvo.chatid}}
+          key={index}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <div
+            onClick={HandleIndiConvoRender(curConvo.chatid)}
+            className={`indi-convo`}
+          >
+            <p className="convo-icon">
+              {curConvo.chatname.find((name) => name !== you)?.[0]}
+            </p>
+            <p className="convo-name">
+              {curConvo.chatname.find((name) => name !== you)}
+            </p>
+            <p className="convo-lastM">start chatting now</p>
+            <p className="convo-timestamp">today</p>
+          </div>
+        </Link>
       ))}
     </div>
   );
