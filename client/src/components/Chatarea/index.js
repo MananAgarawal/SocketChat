@@ -2,67 +2,65 @@ import React from "react";
 import './index.scss'
 import { useState, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdUpdate } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { IoSend } from "react-icons/io5";
 import socket from "../../utils/socketconnection";
+import { AddSelfMessage,AddAnonymusMsg } from "../../redux/slices/messagesslice"
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import Chats from "../Chats";
+
 
 const Chatarea = () => {
 
+    var Message;
+    const Messages = useSelector((state) => state.Messages);
+    
     const location = useLocation();
+    const chatid = location.state.chatid;
+    
+    const dispatch = useDispatch();
+
     const [rerender, setrernder] = useState()
-    useEffect(() => {
-        setrernder('hell yeah!!')
-    },[location.pathname])
 
     useEffect(() => {
         console.log('mounted')
         socket.emit('leave-prev-chat');
-        socket.emit('pv-chat', location.state.chatid)
-    })
+        socket.emit('pv-chat', chatid)
+        setrernder('hell yeah!!')
+    },[location.pathname])
+
     
-
-    const [inputValue,setInputvalue] = useState('')
-
-    useEffect(() => {
-        const textarea = document.getElementById('myTextarea');
-        const inputarea = document.getElementById('appending')
     
-        const maxRows = 7;
-        const textareaRows = textarea.value.split('\n').length;
-        
-        if (textareaRows > maxRows) {
-          textarea.style.overflowY = 'scroll';
-        } else {
-            textarea.style.height = '25px';
-            textarea.style.height = `${textarea.scrollHeight}px`;
-            textarea.style.overflowY = 'hidden';
-            inputarea.style.height = `${textarea.scrollHeight + 10}px`;
-        }
-      }, [inputValue]);
-
-
-
-      socket.on('recieve-msg', msg => {
-        console.log(msg)
-      })
-
       const handlesendarrow = () => {
-            socket.emit('send-message', inputValue , location.state.chatid)
+            dispatch(AddSelfMessage({
+                MsgId : chatid , 
+                ActualMessage : document.getElementById('myTextarea').value ,
+                SendedBy : location.state.SendedBy ,
+                Timestamp : new Date().toISOString(),
+            }))
+            socket.emit('send-message', Message , location.state.chatid)
             document.getElementById('myTextarea').value = '';
       }
 
     return (
         <div className="MainChatArea">
             <div className="Navtop">
-                <Loadtopnav />
+                <Loadtopnav ChatName={`${location.state.ChatName}`}/>
             </div>
             <div className="Chatarea">
-
+                <Chats Chatid={chatid}/>
             </div>
             <div id="appending" className="Inputarea">
-                <textarea spellCheck="false" id="myTextarea" onChange={(e) => setInputvalue(e.target.value)} className="inputelem" placeholder="Type a message...."/>
+                <div className="outer-text-area-styling">
+                    <textarea 
+                    rows='1' spellCheck="false"
+                    id="myTextarea" onChange={(e) => Message=e.target.value} 
+                    className="inputelem" 
+                    placeholder="Type a message...."
+                    />
+                </div>
                 <IoSend onClick={handlesendarrow} className="Send-chat-button" />
             </div>
         </div>
@@ -70,7 +68,9 @@ const Chatarea = () => {
 }
 
 
-const Loadtopnav = () => {
+
+
+const Loadtopnav = ({ChatName}) => {
     return(
         <div className="maintop">
             <div className="mainpfp">
@@ -78,7 +78,7 @@ const Loadtopnav = () => {
             </div>
             <div className="maintopic">
                 <p className="topicname">
-                    Name
+                    {ChatName}
                 </p>
                 <p className="topicstatus">
                     status

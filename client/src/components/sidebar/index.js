@@ -109,7 +109,11 @@ const ChatFormat = ({ convo, you }) => {
       {convo.map((curConvo, index) => (
         <Link  
           to={`./chat/${index}/${curConvo.chatname.find((name) => name !== you)}`}
-          state={{ chatid : curConvo.chatid}}
+          state={{ 
+            chatid : curConvo.chatid , 
+            SendedBy : curConvo.chatname.find((name) => name == you),
+            ChatName : curConvo.chatname.find((name) => name !== you)
+          }}
           key={index}
           style={{ textDecoration: "none", color: "inherit" }}
         >

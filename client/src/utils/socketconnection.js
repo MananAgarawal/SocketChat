@@ -13,5 +13,14 @@ const disconnectsocket = () => {
     }
 }
 
+
+socket.on('recieve-msg', msg => {
+    console.log(msg)
+  })
+
+
+
+
+
 export default socket; // Exporting the socket object
 export { disconnectsocket }; // Exporting the disconnectsocket function

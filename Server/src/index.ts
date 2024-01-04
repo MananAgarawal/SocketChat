@@ -33,11 +33,7 @@ io.of('/socket').on('connection', (socket : Socket) => {
     console.log('Someone connected with socket id :', socket.id);
 
     socket.on('send-message', (msg : string , chatid : string) => {
-
-        
         socket.to(chatid).emit("recieve-msg", msg)
-
-
         console.log(msg)
     })
 
@@ -47,11 +43,9 @@ io.of('/socket').on('connection', (socket : Socket) => {
 
     socket.on('leave-prev-chat', () => {
     
-        const rooms = socket.rooms
-        console.log(socket.rooms)        
+        const rooms = socket.rooms       
         rooms.forEach((room) => {
             if(room !== socket.id){
-                console.log(socket.id , 'Leaved room')
                 socket.leave(room);
             }
         });
