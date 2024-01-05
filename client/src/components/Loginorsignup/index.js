@@ -84,6 +84,7 @@ const LogorSign = () => {
         toast("Invalid password");
       } else if (json.msg === "Authentication successful") {
         localStorage.setItem("AuthToken", json.token);
+        localStorage.setItem("PvNotiRoom", json.room);
         toast("Authentication successful");
         navigate("app");
       } else {

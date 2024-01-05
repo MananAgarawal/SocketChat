@@ -6,8 +6,26 @@ import Welcome from './components/welcome';
 import Chatarea from './components/Chatarea';
 import Creategroup from './components/Creategroups';
 import Adduser from './components/Addusers';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { AddAnonymusMsg } from './redux/slices/messagesslice';
+import {socket} from './socket'
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    function OnRecieveMsg(msg){
+      dispatch(AddAnonymusMsg(msg))
+    }
+
+
+    socket.on('recieve-msg', OnRecieveMsg);
+
+  },[])
+
   return (
       <div className="App">
         <Routes>

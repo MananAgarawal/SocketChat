@@ -10,10 +10,12 @@ const Chats = ({Chatid}) => {
         <div>
             <div className='Main-Message-area'>
                  {FilteredMessages.map((indimsg,index) => (
-                    <div className='Message-container'>
-                        <div className='SendedByName'>{indimsg.SendedBy}</div>
-                        <div className='TimeStampOfMessage'>{new Date(indimsg.Timestamp).toLocaleString()}</div>
-                        <div className='Message-itself'>{indimsg.ActualMessage}</div>
+                    <div key={index} className='Message-container'>
+                        <div className='upperflex'>
+                        <div className='SendedByName'>{indimsg.SendedBy.charAt(0).toUpperCase() + indimsg.SendedBy.slice(1)}</div>
+                        <div className='TimeStampOfMessage'> {new Date(indimsg.Timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                        </div>
+                        <p className='Message-itself'>{indimsg.ActualMessage}</p>
                     </div>
                  ))}
             </div>

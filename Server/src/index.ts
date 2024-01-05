@@ -28,10 +28,13 @@ const connectMongoAtlas = require('./connection');
 const port = process.env.PORT || 8080;
 
 
+const { SaveMessages } = require('./controllers/SaveMessages');
+
+
+
 
 io.of('/socket').on('connection', (socket : Socket) => {
     console.log('Someone connected with socket id :', socket.id);
-
     socket.on('send-message', (msg : string , chatid : string) => {
         socket.to(chatid).emit("recieve-msg", msg)
         console.log(msg)

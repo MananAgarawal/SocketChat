@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+import { v4 as uniqueId } from "uuid";
 
 const userSchema = new mongoose.Schema({
     Username: {
@@ -18,6 +19,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    Room : {
+        type: String,
+        default: uniqueId,
+         unique: true
+    }
 });
 
 const USERS = mongoose.model('User', userSchema);

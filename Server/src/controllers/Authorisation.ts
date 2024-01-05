@@ -27,6 +27,7 @@ async function userlogin(req: Request, res: Response) {
               return res.status(200).json({
                 msg : 'Authentication successful',
                 token : token,
+                room : Checkuser.Room
             })
           } else {
               return res.status(401).json({msg : 'Invalid password'})

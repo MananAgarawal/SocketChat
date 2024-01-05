@@ -5,11 +5,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdDelete, MdUpdate } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { IoSend } from "react-icons/io5";
-import socket from "../../utils/socketconnection";
-import { AddSelfMessage,AddAnonymusMsg } from "../../redux/slices/messagesslice"
+import { AddSelfMessage} from "../../redux/slices/messagesslice"
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import Chats from "../Chats";
+import { socket } from '../../socket'
 
 
 const Chatarea = () => {
@@ -31,8 +31,7 @@ const Chatarea = () => {
         setrernder('hell yeah!!')
     },[location.pathname])
 
-    
-    
+
       const handlesendarrow = () => {
             dispatch(AddSelfMessage({
                 MsgId : chatid , 
@@ -40,7 +39,13 @@ const Chatarea = () => {
                 SendedBy : location.state.SendedBy ,
                 Timestamp : new Date().toISOString(),
             }))
-            socket.emit('send-message', Message , location.state.chatid)
+            socket.emit('send-message', 
+            {
+                MsgId : location.state.chatid,
+                ActualMessage : Message,
+                SendedBy : location.state.SendedBy,
+                Timestamp : new Date().toISOString()
+            } , location.state.chatid)
             document.getElementById('myTextarea').value = '';
       }
 
@@ -92,3 +97,4 @@ const Loadtopnav = ({ChatName}) => {
 }
 
 export default Chatarea;
+

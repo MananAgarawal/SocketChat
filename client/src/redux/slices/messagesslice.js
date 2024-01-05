@@ -7,8 +7,8 @@ const MessagesSlice = createSlice({
         AddSelfMessage : (curval , action) => {
             curval.push(action.payload)
         },
-        AddAnonymusMsg : (cyrval , action) => {
-        
+        AddAnonymusMsg : (curval , action) => {
+            curval.push(action.payload)
         }
       }
 })
