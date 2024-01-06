@@ -33,7 +33,7 @@ const Sidebar = () => {
           },
         });
         const json = await response.json();
-        setchats(<ChatFormat convo={json.conversations} you={json.you} />);
+        setchats(<ChatFormat convo={json.conversations} you={json.you} yourmail={json.yourmail}/>);
         dispatch(TURNOFF());
       };
       LoadChats();
@@ -103,7 +103,7 @@ const Sidebar = () => {
   );
 };
 
-const ChatFormat = ({ convo, you }) => {
+const ChatFormat = ({ convo, you , yourmail }) => {
   const navigate = useNavigate();
 
   const HandleIndiConvoRender = (chatid) => {};
@@ -111,12 +111,14 @@ const ChatFormat = ({ convo, you }) => {
   return (
     <div className="chat-container">
       {convo.map((curConvo, index) => (
-        <Link  
+        <Link
           to={`./chat/${index}/${curConvo.chatname.find((name) => name !== you)}`}
           state={{ 
             chatid : curConvo.chatid , 
             SendedBy : curConvo.chatname.find((name) => name == you),
-            ChatName : curConvo.chatname.find((name) => name !== you)
+            ChatName : curConvo.chatname.find((name) => name !== you),
+            Yourmail : yourmail,
+            Chattermail : curConvo.users.find((mail) => mail !== yourmail)
           }}
           key={index}
           style={{ textDecoration: "none", color: "inherit" }}

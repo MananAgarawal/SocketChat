@@ -14,11 +14,11 @@ async function GetAllTheChats(req : Request,res : Response){
       });
 
     const SendersInfo = await USERS.findOne({ Email : req.body.SendersMail});
-   
     res.status(200).json({
         msg : "All gud",
         conversations : conversations,
-        you : SendersInfo.Username
+        you : SendersInfo.Username,
+        yourmail : SendersInfo.Email
     })
 }
 

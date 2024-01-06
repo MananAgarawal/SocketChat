@@ -1,24 +1,20 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 interface IMessage extends Document {
-  Time: Date;
-  Email: string;
+  ActualMessage: string;
+  Time: string;
   Username: string;
   Chatid: string;
 }
 
 const messagesSchema: Schema<IMessage> = new Schema({
-  Time: {
-    type: Date,
-    required: true,
+  ActualMessage :{
+    type : String,
+    required : true,
   },
-  Email: {
+  Time: {
     type: String,
     required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   },
   Username: {
     type: String,
@@ -32,4 +28,4 @@ const messagesSchema: Schema<IMessage> = new Schema({
 
 const MESSAGES = mongoose.model<IMessage>('Message', messagesSchema);
 
-export default MESSAGES;
+module.exports = MESSAGES;

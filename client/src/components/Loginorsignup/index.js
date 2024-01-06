@@ -120,8 +120,8 @@ const LogorSign = () => {
         toast("Account Created Succesfully");
       } else if (json.msg === "Invalid email format") {
         toast("Invalid email format");
-      } else if (json.msg === "Email Already Exists") {
-        toast("Email Already Exists");
+      } else if (json.msg === "Email or Username Already Exists") {
+        toast("Email or Username Already Exists");
       }
     } catch (error) {
       console.error(`Error :`, error);

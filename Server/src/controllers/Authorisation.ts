@@ -14,20 +14,20 @@ async function userlogin(req: Request, res: Response) {
           return res.status(400).json({msg : "Please provide all required fields"})
       }
 
-      const Checkuser = await USERS.findOne({Email : Mail});
+      const CheckUser = await USERS.findOne({Email : Mail})
       
-      if (Checkuser === null || !Checkuser || Checkuser === undefined){
+      if (CheckUser === null || !CheckUser || CheckUser === undefined){
           return res.status(400).json({msg : "Email not found"})
       } else {
 
-          const passwordMatch = await bcrypt.compare(Pass, Checkuser.Password);
+          const passwordMatch = await bcrypt.compare(Pass, CheckUser.Password);
           
           if(passwordMatch){
-             const token = await jwt.sign({ Mail: Checkuser.Email }, process.env.TOKEN_SECRET);
+             const token = await jwt.sign({ Mail: CheckUser.Email }, process.env.TOKEN_SECRET);
               return res.status(200).json({
                 msg : 'Authentication successful',
                 token : token,
-                room : Checkuser.Room
+                room : CheckUser.Room
             })
           } else {
               return res.status(401).json({msg : 'Invalid password'})
@@ -54,10 +54,17 @@ async function usersignup(req: Request, res: Response) {
       return res.status(400).json({ msg: 'Invalid email format' });
     }
 
-    const ExistingUser = await USERS.findOne({ Email: req.body.Mail });
+
+
+    const ExistingUser = await USERS.findOne({
+      $or: [
+        { Email: req.body.Mail },
+        { Username: req.body.Name }
+      ]
+    });
 
     if (ExistingUser) {
-      return res.status(403).json({ msg: "Email Already Exists" });
+      return res.status(403).json({ msg: "Email or Username Already Exists" });
     }
 
     const hashedPassword = await bcrypt.hash(Pass, saltRounds);

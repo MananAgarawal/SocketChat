@@ -18,6 +18,7 @@ function App() {
   useEffect(() => {
 
     function OnRecieveMsg(msg){
+      console.log('msg recived')
       dispatch(AddAnonymusMsg(msg))
     }
 

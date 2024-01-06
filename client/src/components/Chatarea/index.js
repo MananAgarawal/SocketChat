@@ -20,27 +20,18 @@ const Chatarea = () => {
     const location = useLocation();
     const chatid = location.state.chatid;
     
-    const dispatch = useDispatch();
-
-    const [rerender, setrernder] = useState()
-
     useEffect(() => {
         console.log('mounted')
         socket.emit('leave-prev-chat');
         socket.emit('pv-chat', chatid)
-        setrernder('hell yeah!!')
+
     },[location.pathname])
 
 
+    console.log('mounted')
+
       const handlesendarrow = () => {
-            dispatch(AddSelfMessage({
-                MsgId : chatid , 
-                ActualMessage : document.getElementById('myTextarea').value ,
-                SendedBy : location.state.SendedBy ,
-                Timestamp : new Date().toISOString(),
-            }))
-            socket.emit('send-message', 
-            {
+            socket.emit('send-message', {
                 MsgId : location.state.chatid,
                 ActualMessage : Message,
                 SendedBy : location.state.SendedBy,

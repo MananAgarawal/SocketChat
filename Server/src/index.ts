@@ -8,6 +8,28 @@ require('dotenv').config()
 const jsonParser = bodyParser.json();
 import { Socket } from "socket.io";
 const { instrument } = require('@socket.io/admin-ui')
+import { Redis } from "ioredis";
+
+
+const pub = new Redis({
+    host : 'redis-c756586-maverickmanan-a4e5.a.aivencloud.com',
+    port : 25896,
+    username : 'default',
+    password : 'AVNS_T3MFI_HIK2y0LehHI43'
+});
+
+const sub = new Redis({
+    host : 'redis-c756586-maverickmanan-a4e5.a.aivencloud.com',
+    port : 25896,
+    username : 'default',
+    password : 'AVNS_T3MFI_HIK2y0LehHI43'
+});
+
+sub.subscribe('MESSAGES');
+
+// here the first parameter 'message'is a event listener which triggers when ever new data is pushed over to subscribed channels 
+// the two arguments '(channel,message)' -> here channel is a simple string which will be the channel name on which the data was recieved
+// the sencond argumnet message(just a alies for the data) it it the actual json which was recieved 
 
 
 
@@ -28,16 +50,24 @@ const connectMongoAtlas = require('./connection');
 const port = process.env.PORT || 8080;
 
 
-const { SaveMessages } = require('./controllers/SaveMessages');
+const { SaveMessages } = require('./controllers/Messages');
 
 
+sub.on('message', (channel,message) => {
+    if(channel === 'MESSAGES'){
+        const parsedMessage = JSON.parse(message);
+        const { chatid, msg } = parsedMessage;
+        io.of('/socket').to(chatid).emit("recieve-msg", msg)
+    } else {
+        console.log(`Received message from unexpected channel: ${channel}`);
+      }
+})
 
 
 io.of('/socket').on('connection', (socket : Socket) => {
     console.log('Someone connected with socket id :', socket.id);
-    socket.on('send-message', (msg : string , chatid : string) => {
-        socket.to(chatid).emit("recieve-msg", msg)
-        console.log(msg)
+    socket.on('send-message', async (msg : string , chatid : string) => {
+        await pub.publish('MESSAGES', JSON.stringify({msg , chatid}))
     })
 
     socket.on("pv-chat", (room : string) => {
