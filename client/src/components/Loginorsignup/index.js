@@ -27,6 +27,7 @@ const LogorSign = () => {
 
   useEffect(() => {
     try {
+      setLoading("initialload");
       const checkAuth = async () => {
         const AuthToken = localStorage.getItem("AuthToken");
         if (AuthToken) {
@@ -40,14 +41,15 @@ const LogorSign = () => {
           if (response.ok) {
             navigate("app");
           }
-        } else {
-          return;
         }
       };
       checkAuth();
     } catch (error) {
       console.error("Error", error);
+    } finally {
+      setLoading(false);
     }
+    setLoading(false);
   }, []);
 
   const toggleForm = () => {
@@ -132,102 +134,112 @@ const LogorSign = () => {
 
   return (
     <div className="Mainlogorsign">
-      <div className="three">
-        <div className="whitey">
-          <img className="chatgif" src={chatgif} alt="chatgif" />
-        </div>
-      </div>
-      <div className="seven">
-        <div className="graey">
-          <div className="MainLogorsign">
-            {loading ? (
-              <div className="loader-container">
-                <span className="loader"></span>
-              </div>
-            ) : (
-              <>
-                {isLoginFormVisible ? (
-                  <div className="Signup">
-                    <h1 className="signtext">Signup</h1>
-                    <form
-                      onSubmit={HandleSignUpSubmit}
-                      className="signup-form-submit"
-                    >
-                      <div className="formarea">
-                        <input
-                          name="Name"
-                          onChange={HandleInputChange}
-                          placeholder="Username"
-                          id="username"
-                          className="username"
-                          required
-                        />
-                        <input
-                          id="email"
-                          onChange={HandleInputChange}
-                          name="Mail"
-                          type="Email"
-                          placeholder="email"
-                          className="email"
-                          required
-                        />
-                        <input
-                          id="password"
-                          onChange={HandleInputChange}
-                          name="Pass"
-                          placeholder="Password"
-                          className="password"
-                          required
-                        />
-                        <button className="signup-btn">Submit</button>
-                      </div>
-                    </form>
-                    <div className="slideup">
-                      <h3 onClick={toggleForm} className="signupbutton">
-                        <span>or</span>Login
-                      </h3>
-                    </div>
+      {loading === "initialload" ? (
+        <>
+          <div className="loader-container">
+            <span className="loader"></span>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="three">
+            <div className="whitey">
+              <img className="chatgif" src={chatgif} alt="chatgif" />
+            </div>
+          </div>
+          <div className="seven">
+            <div className="graey">
+              <div className="MainLogorsign">
+                {loading ? (
+                  <div className="loader-container">
+                    <span className="loader"></span>
                   </div>
                 ) : (
-                  <div className="Login">
-                    <div className="slidedown">
-                      <h3 onClick={toggleForm} className="sign-uptog">
-                        <span>or</span>Signup
-                      </h3>
-                    </div>
-                    <form
-                      onSubmit={HandleLoginSubmit}
-                      className="login-form-submit"
-                    >
-                      <div className="formarea">
-                        <input
-                          id="email"
-                          type="email"
-                          onChange={HandleInputChange}
-                          name="Mail"
-                          placeholder="Email"
-                          className="Email"
-                          required
-                        />
-                        <input
-                          id="password"
-                          onChange={HandleInputChange}
-                          name="Pass"
-                          placeholder="Password"
-                          className="password"
-                          required
-                        />
-                        <button className="login-btn">Submit</button>
+                  <>
+                    {isLoginFormVisible ? (
+                      <div className="Signup">
+                        <h1 className="signtext">Signup</h1>
+                        <form
+                          onSubmit={HandleSignUpSubmit}
+                          className="signup-form-submit"
+                        >
+                          <div className="formarea">
+                            <input
+                              name="Name"
+                              onChange={HandleInputChange}
+                              placeholder="Username"
+                              id="username"
+                              className="username"
+                              required
+                            />
+                            <input
+                              id="email"
+                              onChange={HandleInputChange}
+                              name="Mail"
+                              type="Email"
+                              placeholder="email"
+                              className="email"
+                              required
+                            />
+                            <input
+                              id="password"
+                              onChange={HandleInputChange}
+                              name="Pass"
+                              placeholder="Password"
+                              className="password"
+                              required
+                            />
+                            <button className="signup-btn">Submit</button>
+                          </div>
+                        </form>
+                        <div className="slideup">
+                          <h3 onClick={toggleForm} className="signupbutton">
+                            <span>or</span>Login
+                          </h3>
+                        </div>
                       </div>
-                    </form>
-                    <h1 className="Login-text">Login</h1>
-                  </div>
+                    ) : (
+                      <div className="Login">
+                        <div className="slidedown">
+                          <h3 onClick={toggleForm} className="sign-uptog">
+                            <span>or</span>Signup
+                          </h3>
+                        </div>
+                        <form
+                          onSubmit={HandleLoginSubmit}
+                          className="login-form-submit"
+                        >
+                          <div className="formarea">
+                            <input
+                              id="email"
+                              type="email"
+                              onChange={HandleInputChange}
+                              name="Mail"
+                              placeholder="Email"
+                              className="Email"
+                              required
+                            />
+                            <input
+                              id="password"
+                              onChange={HandleInputChange}
+                              name="Pass"
+                              placeholder="Password"
+                              className="password"
+                              required
+                            />
+                            <button className="login-btn">Submit</button>
+                          </div>
+                        </form>
+                        <h1 className="Login-text">Login</h1>
+                      </div>
+                    )}
+                  </>
                 )}
-              </>
-            )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
       <ToastContainer />
     </div>

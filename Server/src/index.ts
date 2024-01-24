@@ -27,9 +27,6 @@ const sub = new Redis({
 
 sub.subscribe('MESSAGES');
 
-// here the first parameter 'message'is a event listener which triggers when ever new data is pushed over to subscribed channels 
-// the two arguments '(channel,message)' -> here channel is a simple string which will be the channel name on which the data was recieved
-// the sencond argumnet message(just a alies for the data) it it the actual json which was recieved 
 
 
 
@@ -52,6 +49,10 @@ const port = process.env.PORT || 8080;
 
 const { SaveMessages } = require('./controllers/Messages');
 
+
+// here the first parameter 'message'is a event listener which triggers when ever new data is pushed over to subscribed channels 
+// the two arguments '(channel,message)' -> here channel is a simple string which will be the channel name on which the data was recieved
+// the sencond argumnet message(just a alies for the data) it it the actual json which was recieved 
 
 sub.on('message', (channel,message) => {
     if(channel === 'MESSAGES'){

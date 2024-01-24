@@ -117,8 +117,7 @@ const ChatFormat = ({ convo, you , yourmail }) => {
             chatid : curConvo.chatid , 
             SendedBy : curConvo.chatname.find((name) => name == you),
             ChatName : curConvo.chatname.find((name) => name !== you),
-            Yourmail : yourmail,
-            Chattermail : curConvo.users.find((mail) => mail !== yourmail)
+            you : you,
           }}
           key={index}
           style={{ textDecoration: "none", color: "inherit" }}

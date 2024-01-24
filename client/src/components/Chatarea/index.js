@@ -16,7 +16,6 @@ const Chatarea = () => {
 
     var Message;
     const Messages = useSelector((state) => state.Messages);
-    
     const location = useLocation();
     const chatid = location.state.chatid;
     
