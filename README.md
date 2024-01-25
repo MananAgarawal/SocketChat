@@ -20,7 +20,7 @@ SocketChat is a real-time communication web application that enables instant mes
    ```bash
    git clone https://github.com/yourusername/socketchat.git
 2. Configure environment variables <br>
-Create a .env file in the root directory and set the necessary environment variables, including MongoDB connection string, JWT secret, etc. <br>
+Create a .env file in the root directory (Server and Client) and set the necessary environment variables, including MongoDB connection string, JWT secret, etc. <br>
 Example .env file:
     ```bash
     PORT=3000
