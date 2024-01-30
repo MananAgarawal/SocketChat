@@ -9,7 +9,10 @@ const jsonParser = bodyParser.json();
 import { Socket } from "socket.io";
 const { instrument } = require('@socket.io/admin-ui')
 import { Redis } from "ioredis";
+import { ProduceMessages } from './Services/kafka'
+import { StartMessageConsumer } from './Services/consumer'
 
+    StartMessageConsumer();
 
 const pub = new Redis({
     host : 'redis-c756586-maverickmanan-a4e5.a.aivencloud.com',
@@ -54,11 +57,12 @@ const { SaveMessages } = require('./controllers/Messages');
 // the two arguments '(channel,message)' -> here channel is a simple string which will be the channel name on which the data was recieved
 // the sencond argumnet message(just a alies for the data) it it the actual json which was recieved 
 
-sub.on('message', (channel,message) => {
+sub.on('message', async (channel,message) => {
     if(channel === 'MESSAGES'){
         const parsedMessage = JSON.parse(message);
         const { chatid, msg } = parsedMessage;
         io.of('/socket').to(chatid).emit("recieve-msg", msg)
+        await ProduceMessages(chatid, msg)
     } else {
         console.log(`Received message from unexpected channel: ${channel}`);
       }

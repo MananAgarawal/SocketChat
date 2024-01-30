@@ -22,7 +22,6 @@ function App() {
       dispatch(AddAnonymusMsg(msg))
     }
 
-
     socket.on('recieve-msg', OnRecieveMsg);
 
   },[])
