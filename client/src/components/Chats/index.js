@@ -2,12 +2,11 @@ import './index.scss'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
+
 const Chats = ({Chatid}) => {
     
     const Messages = useSelector((state) => state.Messages);
-    console.log(Messages)
     const FilteredMessages = Messages.filter(obj => obj.MsgId === Chatid)
-    console.log(Messages)
     return (
         <div>
             <div className='Main-Message-area'>

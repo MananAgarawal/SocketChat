@@ -114,7 +114,7 @@ const ChatFormat = ({ convo, you , yourmail }) => {
         <Link
           to={`./chat/${index}/${curConvo.chatname.find((name) => name !== you)}`}
           state={{ 
-            chatid : curConvo.chatid , 
+            chatid : curConvo.chatid, 
             SendedBy : curConvo.chatname.find((name) => name == you),
             ChatName : curConvo.chatname.find((name) => name !== you),
             you : you,

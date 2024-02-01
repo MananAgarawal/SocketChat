@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import Chats from "../Chats";
 import { socket } from '../../socket'
+import PreviousMesssages from '../previousmesssages'
 
 
 const Chatarea = () => {
@@ -19,15 +20,34 @@ const Chatarea = () => {
     const location = useLocation();
     const chatid = location.state.chatid;
     
+
+
     useEffect(() => {
+        LoadPreviousMessages()
         console.log('mounted')
         socket.emit('leave-prev-chat');
         socket.emit('pv-chat', chatid)
-
     },[location.pathname])
 
+    const [PrevChats, SetPrevChats] = useState([]);
 
-    console.log('mounted')
+    const LoadPreviousMessages = async () => {
+        const AuthToken = localStorage.getItem("AuthToken");
+        const response = await fetch("http://localhost:5000/allchats/getallmessages", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: AuthToken,
+          },
+          body: JSON.stringify({ chatid: chatid }),
+        });
+        const json = await response.json()
+        SetPrevChats(json.previousmessages);
+        console.log(PrevChats)
+      };
+        
+     
+
 
       const handlesendarrow = () => {
             socket.emit('send-message', {
@@ -45,6 +65,9 @@ const Chatarea = () => {
                 <Loadtopnav ChatName={`${location.state.ChatName}`}/>
             </div>
             <div className="Chatarea">
+                {PrevChats == [] ? ( <></>) : (<>
+                    <PreviousMesssages Prvmsg={PrevChats}/>
+                </>)}
                 <Chats Chatid={chatid}/>
             </div>
             <div id="appending" className="Inputarea">
