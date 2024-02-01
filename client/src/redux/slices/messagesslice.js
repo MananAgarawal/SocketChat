@@ -4,14 +4,14 @@ const MessagesSlice = createSlice({
       name : 'MESSAGES',
       initialState : [],
       reducers : {
-        AddSelfMessage : (curval , action) => {
-            curval.push(action.payload)
-        },
         AddAnonymusMsg : (curval , action) => {
             curval.push(action.payload)
+        },
+        flushmessages : (curval, action) => {
+          return [];
         }
       }
 })
 
-export const { AddAnonymusMsg, AddSelfMessage } = MessagesSlice.actions;
+export const { AddAnonymusMsg , flushmessages} = MessagesSlice.actions;
 export default MessagesSlice.reducer;
