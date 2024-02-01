@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Chats from "../Chats";
 import { socket } from '../../socket'
 import PreviousMesssages from '../previousmesssages'
-
+import { flushmessages } from '../../redux/slices/messagesslice';
 
 const Chatarea = () => {
 
@@ -19,11 +19,12 @@ const Chatarea = () => {
     const Messages = useSelector((state) => state.Messages);
     const location = useLocation();
     const chatid = location.state.chatid;
-    
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
         LoadPreviousMessages()
+        dispatch(flushmessages("flushit"))
         console.log('mounted')
         socket.emit('leave-prev-chat');
         socket.emit('pv-chat', chatid)
@@ -47,8 +48,6 @@ const Chatarea = () => {
       };
         
      
-
-
       const handlesendarrow = () => {
             socket.emit('send-message', {
                 MsgId : location.state.chatid,
