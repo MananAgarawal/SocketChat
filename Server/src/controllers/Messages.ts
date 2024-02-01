@@ -1,4 +1,5 @@
 const MESSAGES = require('../models/Messages')
+import { Request, Response } from "express";
 
 interface IndiMsgI {
     ActualMessage: string;
@@ -23,6 +24,18 @@ async function SaveMessages(msg: IndiMsgI) {
     }
 }
 
+
+async function GetPreviousMessages(req: Request, res: Response){
+        const FilteredMessages = await MESSAGES.find({ Chatid : req.body.chatid });
+        console.log(FilteredMessages)
+        res.status(200).json({ 
+            msg : "ok",
+            previousmessages : FilteredMessages
+        });
+    
+}
+
 module.exports = {
     SaveMessages,
+    GetPreviousMessages
 }
