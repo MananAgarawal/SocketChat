@@ -61,13 +61,13 @@ const Chatarea = () => {
     return (
         <div className="MainChatArea">
             <div className="Navtop">
-                <Loadtopnav ChatName={`${location.state.ChatName}`}/>
+                <Loadtopnav ChatName={`${location.state.ChatName}`} />
             </div>
             <div className="Chatarea">
                 {PrevChats == [] ? ( <></>) : (<>
-                    <PreviousMesssages Prvmsg={PrevChats}/>
+                    <PreviousMesssages Prvmsg={PrevChats} you={location.state.you}/>
                 </>)}
-                <Chats Chatid={chatid}/>
+                <Chats Chatid={chatid} you={location.state.you}/>
             </div>
             <div id="appending" className="Inputarea">
                 <div className="outer-text-area-styling">
