@@ -3,13 +3,13 @@ import fs from 'fs'
 import path from 'path'
 
 const kafka = new Kafka({
-    brokers : ["kafka-f8b0616-maverickmanan-a4e5.a.aivencloud.com:25909"],
+    brokers : [process.env.KAFKABROKER],
     ssl : {
         ca : [fs.readFileSync(path.resolve("./ca.pem"), "utf-8")]
     },
     sasl : {
         username : "avnadmin",
-        password : "AVNS_6p3iXM_jPLISqTWfzk3",
+        password : process.env.KAFKAPASS,
         mechanism : "plain"
     }
 })

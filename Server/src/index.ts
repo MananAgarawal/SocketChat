@@ -7,7 +7,6 @@ const cors = require('cors');
 require('dotenv').config()
 const jsonParser = bodyParser.json();
 import { Socket } from "socket.io";
-const { instrument } = require('@socket.io/admin-ui')
 import { Redis } from "ioredis";
 import { ProduceMessages } from './Services/kafka'
 import { StartMessageConsumer } from './Services/consumer'
@@ -15,17 +14,17 @@ import { StartMessageConsumer } from './Services/consumer'
     StartMessageConsumer();
 
 const pub = new Redis({
-    host : 'redis-c756586-maverickmanan-a4e5.a.aivencloud.com',
+    host : process.env.REDISHOST,
     port : 25896,
     username : 'default',
-    password : 'AVNS_T3MFI_HIK2y0LehHI43'
+    password : process.env.REDISPASS
 });
 
 const sub = new Redis({
-    host : 'redis-c756586-maverickmanan-a4e5.a.aivencloud.com',
+    host : process.env.REDISHOST,
     port : 25896,
     username : 'default',
-    password : 'AVNS_T3MFI_HIK2y0LehHI43'
+    password : process.env.REDISPASS
 });
 
 sub.subscribe('MESSAGES');
@@ -37,7 +36,7 @@ const app = express();
 const server = http.createServer(app, {
     cors: {
         cors: {
-            origin: ['http://localhost:3000', 'https://admin.socket.io' ],
+            origin: ['http://localhost:3000'], // to be changed
             credentials: true
           }
       }
@@ -117,4 +116,3 @@ server.listen(port, () => {
     console.log(`App listening on http://localhost:${port}`);
 });
 
-instrument(io, {auth : false})
