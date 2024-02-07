@@ -1,6 +1,7 @@
 import './index.scss'
-
+import { useSelector } from 'react-redux';
 const PreviousMesssages = ({ Prvmsg , you}) => {
+    const Messages = useSelector((state) => state.Messages);
     return (
         <div>
             <div className='Main-Message-area'>

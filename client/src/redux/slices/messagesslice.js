@@ -8,7 +8,7 @@ const MessagesSlice = createSlice({
             curval.push(action.payload)
         },
         flushmessages : (curval, action) => {
-          return [];
+            return [];
         }
       }
 })
