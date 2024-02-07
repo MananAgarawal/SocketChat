@@ -12,6 +12,9 @@ import Chats from "../Chats";
 import { socket } from '../../socket'
 import PreviousMesssages from '../previousmesssages'
 import { flushmessages } from '../../redux/slices/messagesslice';
+import { ConstantServerURL } from "../../ConstUrl";
+
+
 
 const Chatarea = () => {
 
@@ -25,7 +28,6 @@ const Chatarea = () => {
     useEffect(() => {
         LoadPreviousMessages()
         dispatch(flushmessages("flushit"))
-        console.log('mounted')
         socket.emit('leave-prev-chat');
         socket.emit('pv-chat', chatid)
     },[location.pathname])
@@ -34,7 +36,7 @@ const Chatarea = () => {
 
     const LoadPreviousMessages = async () => {
         const AuthToken = localStorage.getItem("AuthToken");
-        const response = await fetch("http://localhost:5000/allchats/getallmessages", {
+        const response = await fetch(`${ConstantServerURL}/allchats/getallmessages`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -44,7 +46,6 @@ const Chatarea = () => {
         });
         const json = await response.json()
         SetPrevChats(json.previousmessages);
-        console.log(PrevChats)
       };
         
      

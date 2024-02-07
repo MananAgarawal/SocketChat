@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";
+import { ConstantServerURL } from "../../ConstUrl";
 
 const LogorSign = () => {
   const [isLoginFormVisible, setLoginFormVisible] = useState(true);
@@ -31,7 +32,7 @@ const LogorSign = () => {
       const checkAuth = async () => {
         const AuthToken = localStorage.getItem("AuthToken");
         if (AuthToken) {
-          const response = await fetch("http://localhost:5000/", {
+          const response = await fetch(`${ConstantServerURL}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -70,7 +71,7 @@ const LogorSign = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch(`${ConstantServerURL}/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -104,7 +105,7 @@ const LogorSign = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/signup", {
+      const response = await fetch(`${ConstantServerURL}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -240,7 +241,6 @@ const LogorSign = () => {
           </div>
         </>
       )}
-
       <ToastContainer />
     </div>
   );

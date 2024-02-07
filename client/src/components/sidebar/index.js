@@ -10,6 +10,8 @@ import "../mystyles.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { TURNOFF } from "../../redux/slices/loaderslice";
 import { Link } from "react-router-dom";
+import { ConstantServerURL } from "../../ConstUrl";
+
 
 
 const Sidebar = () => {
@@ -19,13 +21,11 @@ const Sidebar = () => {
   const [chats, setchats] = useState(<div></div>);
 
 
-
-
   useEffect(() => {
     try {
       const LoadChats = async () => {
         const AuthToken = localStorage.getItem("AuthToken");
-        const response = await fetch("http://localhost:5000/allchats", {
+        const response = await fetch(`${ConstantServerURL}/allchats`, {
           method: "GET",
           headers: {
             "content-type": "application/json",

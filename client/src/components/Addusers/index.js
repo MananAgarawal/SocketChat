@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector , useDispatch} from 'react-redux';
-
+import { ConstantServerURL } from "../../ConstUrl";
 import "./index.scss";
 import { TURNOFF, TURNON } from "../../redux/slices/loaderslice";
 
@@ -16,7 +16,7 @@ const Adduser = () => {
     e.preventDefault();
     const AuthToken = localStorage.getItem("AuthToken");
     try {
-      const response = await fetch("http://localhost:5000/add", {
+      const response = await fetch(`${ConstantServerURL}/add`, {
         method: "POST",
         headers: {
           authorization: AuthToken,

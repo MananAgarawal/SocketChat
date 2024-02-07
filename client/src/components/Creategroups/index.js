@@ -1,8 +1,12 @@
 import React from "react";
 import "./index.scss";
+import { ToastContainer, toast } from "react-toastify";
 
 const Creategroup = () => {
 
+  const CreateGroupFunc = () => {
+    toast("In development...")
+  }
 
   return (
     <div className="Main-welcome">
@@ -17,10 +21,11 @@ const Creategroup = () => {
             <input type="text" id="groupDescription" name="groupDescription" required />
             <label htmlFor="groupMembers">Max Members:</label>
             <input type="Number" id="groupMembers" name="groupMembers" required />
-            <button type="submit">Create Group</button>
+            <button onClick={CreateGroupFunc} type="submit">Create Group</button>
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
