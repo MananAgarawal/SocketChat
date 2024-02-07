@@ -2,10 +2,8 @@ import React from "react";
 import './index.scss'
 import { useState, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { MdDelete, MdUpdate } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 import { IoSend } from "react-icons/io5";
-import { AddSelfMessage} from "../../redux/slices/messagesslice"
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import Chats from "../Chats";
@@ -19,7 +17,6 @@ import { ConstantServerURL } from "../../ConstUrl";
 const Chatarea = () => {
 
     var Message;
-    const Messages = useSelector((state) => state.Messages);
     const location = useLocation();
     const chatid = location.state.chatid;
     const dispatch = useDispatch()
