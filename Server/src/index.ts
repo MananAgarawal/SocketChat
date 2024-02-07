@@ -36,7 +36,7 @@ const app = express();
 const server = http.createServer(app, {
     cors: {
         cors: {
-            origin: ['http://localhost:3000'], // to be changed
+            origin: ['http://localhost:3000', 'https://socket-chat-client-lbl3.onrender.com'], 
             credentials: true
           }
       }
