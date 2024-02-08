@@ -2,7 +2,7 @@
 
 SocketChat is a real-time communication web application that enables instant messaging and connection between users. With a simple and intuitive interface, SocketChat provides a seamless platform for chatting, connecting, and sharing in real time. <br>
 
-Live Site -> socket-chat-client-lbl3.onrender.com
+Live Site -> https://socket-chat-client-lbl3.onrender.com
 
 ## Features
 
