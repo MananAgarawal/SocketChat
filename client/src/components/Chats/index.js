@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 const Chats = ({Chatid, you}) => {
     const Messages = useSelector((state) => state.Messages);
     const FilteredMessages = Messages.filter(obj => obj.MsgId === Chatid)
+    console.log(Messages)
     return (
         <div>
             <div className='Main-Message-area'>

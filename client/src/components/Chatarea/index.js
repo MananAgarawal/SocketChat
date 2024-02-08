@@ -20,8 +20,8 @@ const Chatarea = () => {
     const location = useLocation();
     const chatid = location.state.chatid;
     const dispatch = useDispatch()
-
-
+    const [loader,setLoader] = useState(true)
+    
     useEffect(() => {
         LoadPreviousMessages()
         dispatch(flushmessages("flushit"))
@@ -32,6 +32,7 @@ const Chatarea = () => {
     const [PrevChats, SetPrevChats] = useState([]);
 
     const LoadPreviousMessages = async () => {
+        setLoader(true)
         const AuthToken = localStorage.getItem("AuthToken");
         const response = await fetch(`${ConstantServerURL}/allchats/getallmessages`, {
           method: "POST",
@@ -43,6 +44,7 @@ const Chatarea = () => {
         });
         const json = await response.json()
         SetPrevChats(json.previousmessages);
+        setLoader(false)
       };
         
      
@@ -62,9 +64,16 @@ const Chatarea = () => {
                 <Loadtopnav ChatName={`${location.state.ChatName}`} />
             </div>
             <div className="Chatarea">
-                {PrevChats == [] ? ( <></>) : (<>
+                {loader ? (<>
+                    <div className="loader-container">
+                        <span className="loader"></span>
+                    </div>
+                </>) : (<>
+                    {PrevChats == [] ? ( <></>) : (<>
                     <PreviousMesssages Prvmsg={PrevChats} you={location.state.you}/>
                 </>)}
+                </>)}
+                
                 <Chats Chatid={chatid} you={location.state.you}/>
             </div>
             <div id="appending" className="Inputarea">
